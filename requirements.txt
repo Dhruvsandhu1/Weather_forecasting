@@ -1,0 +1,14 @@
+torch
+torchvision
+torchsummary
+numpy
+opencv-python
+matplotlib
+scikit-learn
+ipykernel
+pytorch-msssim
+sympy
+xarray
+netCDF4
+cftime
+pandas
