@@ -43,6 +43,7 @@ def build_dm_from_cfg(cfg: dict, micro_batch_size: int, num_workers: int):
         aug_mode=cfg["aug_mode"],
         ret_contiguous=False,
         dataset_name=cfg["dataset_name"],
+        sevir_dir=cfg.get("sevir_dir", None),
         start_date=cfg.get("start_date", None),
         train_test_split_date=cfg.get("train_test_split_date", None),
         end_date=cfg.get("end_date", None),
@@ -57,6 +58,8 @@ def get_parser():
     p.add_argument("--save", default="finetune_sevirlr_custom", type=str)
     p.add_argument("--cfg", default=None, type=str,
                    help="Base YAML config. Defaults to prediff_sevirlr_v1.yaml")
+    p.add_argument("--sevir_dir", default="datasets/train", type=str,
+                   help="Path to the SEVIR-LR dataset root (containing CATALOG.csv and data/). If omitted, defaults to datasets/sevirlr.")
     p.add_argument("--pretrained", action="store_true",
                    help="Load pretrained Earthformer-UNet + VAE weights before training.")
     p.add_argument("--epochs", default=50, type=int)
@@ -93,6 +96,8 @@ def main():
     # Dataset: ensure we use the generated SEVIR-LR dataset entirely for train/val splits
     oc.dataset.dataset_name = "sevirlr"
     oc.dataset.val_ratio = args.val_ratio
+    if args.sevir_dir is not None:
+        oc.dataset.sevir_dir = os.path.abspath(args.sevir_dir)
     # Use full catalog for training split (no time-based split)
     oc.dataset.start_date = None
     oc.dataset.train_test_split_date = None
@@ -125,6 +130,14 @@ def main():
     )
     dm.prepare_data()
     dm.setup()
+    # Log dataset resolution and split sizes for verification
+    try:
+        print(f"Using dataset: {dm.dataset_name}")
+        print(f"SEVIR dir: {dm.sevir_dir}")
+        print(f"Catalog: {dm.catalog_path}")
+        print(f"Train/Val samples: {dm.num_train_samples} / {dm.num_val_samples}")
+    except Exception:
+        pass
 
     # Determine gradient accumulation
     total_batch_size = oc.optim.get("total_batch_size", None)

@@ -1,0 +1,68 @@
+For pretrained model
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+        Test metric               DataLoader 0
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+test_aligned_bias_133_epoch    18.731903076171875
+test_aligned_bias_160_epoch    33.299686431884766
+test_aligned_bias_16_epoch     3.0801234245300293
+test_aligned_bias_181_epoch     8.324645042419434
+test_aligned_bias_219_epoch            0.0
+test_aligned_bias_74_epoch     13.329063415527344
+test_aligned_bias_avg_epoch     12.79423713684082
+test_aligned_csi_133_epoch             0.0
+test_aligned_csi_160_epoch             0.0
+ test_aligned_csi_16_epoch     0.17608857154846191
+test_aligned_csi_181_epoch             0.0
+test_aligned_csi_219_epoch             0.0
+ test_aligned_csi_74_epoch    0.013671872206032276
+test_aligned_csi_avg_epoch     0.03162674233317375
+  test_aligned_fvd_epoch       183.51089477539062
+  test_aligned_mae_epoch      0.008351413533091545
+  test_aligned_mse_epoch      0.0006184297380968928
+test_aligned_pod_133_epoch             0.0
+test_aligned_pod_160_epoch             0.0
+ test_aligned_pod_16_epoch     0.3318619728088379
+test_aligned_pod_181_epoch             0.0
+test_aligned_pod_219_epoch             0.0
+ test_aligned_pod_74_epoch    0.047619011253118515
+test_aligned_pod_avg_epoch     0.06324683129787445
+  test_aligned_ssim_epoch      0.7515023946762085
+test_aligned_sucr_133_epoch            0.0
+test_aligned_sucr_160_epoch            0.0
+test_aligned_sucr_16_epoch     0.2728022336959839
+test_aligned_sucr_181_epoch            0.0
+test_aligned_sucr_219_epoch            0.0
+test_aligned_sucr_74_epoch    0.018817199394106865
+test_aligned_sucr_avg_epoch    0.04860324040055275
+    test_bias_133_epoch                0.0
+    test_bias_160_epoch                0.0
+    test_bias_16_epoch         1.6817020177841187
+    test_bias_181_epoch                0.0
+    test_bias_219_epoch                0.0
+    test_bias_74_epoch         1.8609873056411743
+    test_bias_avg_epoch        0.5904482007026672
+    test_csi_133_epoch                 0.0
+    test_csi_160_epoch                 0.0
+     test_csi_16_epoch         0.18924352526664734
+    test_csi_181_epoch                 0.0
+    test_csi_219_epoch                 0.0
+     test_csi_74_epoch         0.01779358834028244
+    test_csi_avg_epoch        0.034506186842918396
+      test_fvd_epoch           180.04129028320312
+      test_mae_epoch          0.007970218546688557
+      test_mse_epoch         0.00043056425056420267
+    test_pod_133_epoch                 0.0
+    test_pod_160_epoch                 0.0
+     test_pod_16_epoch         0.3021669387817383
+    test_pod_181_epoch                 0.0
+    test_pod_219_epoch                 0.0
+     test_pod_74_epoch         0.03401358053088188
+    test_pod_avg_epoch         0.05603008717298508
+      test_ssim_epoch          0.7421365976333618
+    test_sucr_133_epoch                0.0
+    test_sucr_160_epoch                0.0
+    test_sucr_16_epoch         0.33616071939468384
+    test_sucr_181_epoch                0.0
+    test_sucr_219_epoch                0.0
+    test_sucr_74_epoch         0.03597119450569153
+    test_sucr_avg_epoch        0.06202198565006256

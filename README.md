@@ -11,6 +11,7 @@ By [Zhihan Gao](https://scholar.google.com/citations?user=P6ACUAUAAAAJ),
 [Yuyang Bernie Wang](http://web.mit.edu/~ywang02/www/).
 
 This repo contains the official implementation of the ["PreDiff: Precipitation Nowcasting with Latent Diffusion Models"](https://openreview.net/pdf?id=Gh67ZZ6zkS) paper accepted to NeurIPS 2023.
+THIS REPO IS MODIFIED TO FINETUNE OVER CUSTOM DATASET AND INFERENCING.
 
 ## Introduction
 Earth system forecasting has traditionally relied on complex physical models that are computationally expensive and require significant domain expertise. 
