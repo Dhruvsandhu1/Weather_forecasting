@@ -1,0 +1,434 @@
+(prediff) D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff>python "d:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\scripts\prediff\sevirlr\train_sevirlr_prediff.py" --test --pretrained --sevir_dir "d:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\datasets\custom_test" --dataset_stride 1 --eval_all --ckpt_name "D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\experiments\finetune_custom\checkpoints\sevirlr_earthformerunet_finetuned_020.pt"
+D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\src\prediff\utils\download.py:38: UserWarning: Checkpoint file D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\pretrained\vae\pretrained_sevirlr_vae_8x8x64_v1.pt already exists!
+  warnings.warn(f"Checkpoint file {ckpt_path} already exists!")
+D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\src\prediff\utils\download.py:38: UserWarning: Checkpoint file D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\pretrained\earthformerunet\pretrained_sevirlr_earthformerunet_v1.pt already exists!
+  warnings.warn(f"Checkpoint file {ckpt_path} already exists!")
+D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\src\prediff\utils\download.py:38: UserWarning: Checkpoint file D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\pretrained\alignment\pretrained_sevirlr_alignment_avg_x_cuboid_v1.pt already exists!
+  warnings.warn(f"Checkpoint file {ckpt_path} already exists!")
+Seed set to 0
+Seed set to 0
+C:\Users\dhruv\anaconda3\envs\prediff\Lib\site-packages\torch\utils\data\dataset.py:469: UserWarning: Length of split at index 0 is 0. This might result in an empty dataset.
+  warnings.warn(
+C:\Users\dhruv\anaconda3\envs\prediff\Lib\site-packages\torch\utils\data\dataset.py:469: UserWarning: Length of split at index 1 is 0. This might result in an empty dataset.
+  warnings.warn(
+Using dataset_name: sevirlr
+Using sevir_dir: d:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\datasets\custom_test
+Using catalog: d:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\datasets\custom_test\CATALOG.csv
+Num test samples: 13
+C:\Users\dhruv\anaconda3\envs\prediff\Lib\site-packages\torch\functional.py:554: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\aten\src\ATen\native\TensorShape.cpp:4316.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+Using VAE checkpoint: D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\pretrained\vae\pretrained_sevirlr_vae_8x8x64_v1.pt
+PreDiffSEVIRPLModule: Running in eps-prediction mode
+Keeping EMAs of 642.
+Using alignment checkpoint: D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\pretrained\alignment\pretrained_sevirlr_alignment_avg_x_cuboid_v1.pt
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+Using Earthformer-UNet checkpoint: D:\Dhruv_Sandhu\Machine_Learning\Projects\PreDiff\experiments\finetune_custom\checkpoints\sevirlr_earthformerunet_finetuned_020.pt (model-only)
+Seed set to 0
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+C:\Users\dhruv\anaconda3\envs\prediff\Lib\site-packages\lightning\pytorch\trainer\connectors\data_connector.py:433: The 'test_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=27` in the `DataLoader` to improve performance.
+Testing DataLoader 0: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████| 7/7 [42:34<00:00,  0.00it/s]
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+         Test metric                   DataLoader 0
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ test_aligned_bias_133_epoch        63.609527587890625
+test_aligned_bias_133_t0_epoch     0.10278136283159256
+test_aligned_bias_133_t1_epoch     0.03252057731151581
+test_aligned_bias_133_t2_epoch      10.53640365600586
+test_aligned_bias_133_t3_epoch      52.03162384033203
+test_aligned_bias_133_t4_epoch      150.3713836669922
+test_aligned_bias_133_t5_epoch      168.58245849609375
+ test_aligned_bias_160_epoch        617.3493041992188
+test_aligned_bias_160_t0_epoch             0.0
+test_aligned_bias_160_t1_epoch             0.0
+test_aligned_bias_160_t2_epoch      33.29524230957031
+test_aligned_bias_160_t3_epoch      407.86676025390625
+test_aligned_bias_160_t4_epoch      1631.467041015625
+test_aligned_bias_160_t5_epoch      1631.467041015625
+  test_aligned_bias_16_epoch        2.921508550643921
+test_aligned_bias_16_t0_epoch       2.2333450317382812
+test_aligned_bias_16_t1_epoch       2.1600277423858643
+test_aligned_bias_16_t2_epoch       2.599539041519165
+test_aligned_bias_16_t3_epoch       2.988356351852417
+test_aligned_bias_16_t4_epoch       3.5577492713928223
+test_aligned_bias_16_t5_epoch       3.9900341033935547
+ test_aligned_bias_181_epoch        414.8031921386719
+test_aligned_bias_181_t0_epoch             0.0
+test_aligned_bias_181_t1_epoch             0.0
+test_aligned_bias_181_t2_epoch      18.72857666015625
+test_aligned_bias_181_t3_epoch      251.7952423095703
+test_aligned_bias_181_t4_epoch       1300.59521484375
+test_aligned_bias_181_t5_epoch      917.7001342773438
+ test_aligned_bias_219_epoch          12973867008.0
+test_aligned_bias_219_t0_epoch             0.0
+test_aligned_bias_219_t1_epoch             0.0
+test_aligned_bias_219_t2_epoch         208136896.0
+test_aligned_bias_219_t3_epoch         7492928512.0
+test_aligned_bias_219_t4_epoch        53283045376.0
+test_aligned_bias_219_t5_epoch        16859088896.0
+  test_aligned_bias_74_epoch        2.512197971343994
+test_aligned_bias_74_t0_epoch       0.7794108390808105
+test_aligned_bias_74_t1_epoch      0.23126284778118134
+test_aligned_bias_74_t2_epoch       0.7631030082702637
+test_aligned_bias_74_t3_epoch       1.3566274642944336
+test_aligned_bias_74_t4_epoch       5.755612373352051
+test_aligned_bias_74_t5_epoch        6.18717098236084
+ test_aligned_bias_avg_epoch           2162311168.0
+test_aligned_bias_avg_t0_epoch      0.5192562341690063
+test_aligned_bias_avg_t1_epoch      0.4039685130119324
+test_aligned_bias_avg_t2_epoch          34689492.0
+test_aligned_bias_avg_t3_epoch         1248821504.0
+test_aligned_bias_avg_t4_epoch         8880507904.0
+test_aligned_bias_avg_t5_epoch         2809848576.0
+  test_aligned_csi_133_epoch               0.0
+test_aligned_csi_133_t0_epoch              0.0
+test_aligned_csi_133_t1_epoch              0.0
+test_aligned_csi_133_t2_epoch              0.0
+test_aligned_csi_133_t3_epoch              0.0
+test_aligned_csi_133_t4_epoch              0.0
+test_aligned_csi_133_t5_epoch              0.0
+  test_aligned_csi_160_epoch               0.0
+test_aligned_csi_160_t0_epoch              0.0
+test_aligned_csi_160_t1_epoch              0.0
+test_aligned_csi_160_t2_epoch              0.0
+test_aligned_csi_160_t3_epoch              0.0
+test_aligned_csi_160_t4_epoch              0.0
+test_aligned_csi_160_t5_epoch              0.0
+  test_aligned_csi_16_epoch         0.2164117693901062
+ test_aligned_csi_16_t0_epoch       0.4864520728588104
+ test_aligned_csi_16_t1_epoch      0.29098770022392273
+ test_aligned_csi_16_t2_epoch      0.18742386996746063
+ test_aligned_csi_16_t3_epoch      0.13683900237083435
+ test_aligned_csi_16_t4_epoch       0.1026933565735817
+ test_aligned_csi_16_t5_epoch      0.09407461434602737
+  test_aligned_csi_181_epoch               0.0
+test_aligned_csi_181_t0_epoch              0.0
+test_aligned_csi_181_t1_epoch              0.0
+test_aligned_csi_181_t2_epoch              0.0
+test_aligned_csi_181_t3_epoch              0.0
+test_aligned_csi_181_t4_epoch              0.0
+test_aligned_csi_181_t5_epoch              0.0
+  test_aligned_csi_219_epoch               0.0
+test_aligned_csi_219_t0_epoch              0.0
+test_aligned_csi_219_t1_epoch              0.0
+test_aligned_csi_219_t2_epoch              0.0
+test_aligned_csi_219_t3_epoch              0.0
+test_aligned_csi_219_t4_epoch              0.0
+test_aligned_csi_219_t5_epoch              0.0
+  test_aligned_csi_74_epoch        0.024573832750320435
+ test_aligned_csi_74_t0_epoch      0.12499993294477463
+ test_aligned_csi_74_t1_epoch      0.01734102889895439
+ test_aligned_csi_74_t2_epoch              0.0
+ test_aligned_csi_74_t3_epoch      0.005102037917822599
+ test_aligned_csi_74_t4_epoch              0.0
+ test_aligned_csi_74_t5_epoch              0.0
+  test_aligned_csi_avg_epoch       0.040164265781641006
+test_aligned_csi_avg_t0_epoch      0.10190866887569427
+test_aligned_csi_avg_t1_epoch      0.05138812214136124
+test_aligned_csi_avg_t2_epoch      0.03123731166124344
+test_aligned_csi_avg_t3_epoch      0.02365683950483799
+test_aligned_csi_avg_t4_epoch      0.017115559428930283
+test_aligned_csi_avg_t5_epoch      0.015679102391004562
+    test_aligned_fvd_epoch          94.45065307617188
+    test_aligned_mae_epoch         0.005766202230006456
+    test_aligned_mse_epoch        0.00044970991439186037
+  test_aligned_pod_133_epoch               0.0
+test_aligned_pod_133_t0_epoch              0.0
+test_aligned_pod_133_t1_epoch              0.0
+test_aligned_pod_133_t2_epoch              0.0
+test_aligned_pod_133_t3_epoch              0.0
+test_aligned_pod_133_t4_epoch              0.0
+test_aligned_pod_133_t5_epoch              0.0
+  test_aligned_pod_160_epoch               0.0
+test_aligned_pod_160_t0_epoch              0.0
+test_aligned_pod_160_t1_epoch              0.0
+test_aligned_pod_160_t2_epoch              0.0
+test_aligned_pod_160_t3_epoch              0.0
+test_aligned_pod_160_t4_epoch              0.0
+test_aligned_pod_160_t5_epoch              0.0
+  test_aligned_pod_16_epoch         0.3566719591617584
+ test_aligned_pod_16_t0_epoch       0.666251540184021
+ test_aligned_pod_16_t1_epoch      0.45501819252967834
+ test_aligned_pod_16_t2_epoch       0.3342383801937103
+ test_aligned_pod_16_t3_epoch      0.26459696888923645
+ test_aligned_pod_16_t4_epoch      0.21488848328590393
+ test_aligned_pod_16_t5_epoch      0.20503826439380646
+  test_aligned_pod_181_epoch               0.0
+test_aligned_pod_181_t0_epoch              0.0
+test_aligned_pod_181_t1_epoch              0.0
+test_aligned_pod_181_t2_epoch              0.0
+test_aligned_pod_181_t3_epoch              0.0
+test_aligned_pod_181_t4_epoch              0.0
+test_aligned_pod_181_t5_epoch              0.0
+  test_aligned_pod_219_epoch               0.0
+test_aligned_pod_219_t0_epoch              0.0
+test_aligned_pod_219_t1_epoch              0.0
+test_aligned_pod_219_t2_epoch              0.0
+test_aligned_pod_219_t3_epoch              0.0
+test_aligned_pod_219_t4_epoch              0.0
+test_aligned_pod_219_t5_epoch              0.0
+  test_aligned_pod_74_epoch        0.035167645663022995
+ test_aligned_pod_74_t0_epoch      0.17910432815551758
+ test_aligned_pod_74_t1_epoch      0.022727254778146744
+ test_aligned_pod_74_t2_epoch              0.0
+ test_aligned_pod_74_t3_epoch      0.009174303151667118
+ test_aligned_pod_74_t4_epoch              0.0
+ test_aligned_pod_74_t5_epoch              0.0
+  test_aligned_pod_avg_epoch       0.06530660390853882
+test_aligned_pod_avg_t0_epoch       0.1408926397562027
+test_aligned_pod_avg_t1_epoch       0.079624243080616
+test_aligned_pod_avg_t2_epoch      0.05570639669895172
+test_aligned_pod_avg_t3_epoch      0.04562854394316673
+test_aligned_pod_avg_t4_epoch      0.03581474721431732
+test_aligned_pod_avg_t5_epoch      0.03417304530739784
+   test_aligned_ssim_epoch          0.8745208978652954
+ test_aligned_sucr_133_epoch               0.0
+test_aligned_sucr_133_t0_epoch             0.0
+test_aligned_sucr_133_t1_epoch             0.0
+test_aligned_sucr_133_t2_epoch             0.0
+test_aligned_sucr_133_t3_epoch             0.0
+test_aligned_sucr_133_t4_epoch             0.0
+test_aligned_sucr_133_t5_epoch             0.0
+ test_aligned_sucr_160_epoch               0.0
+test_aligned_sucr_160_t0_epoch             0.0
+test_aligned_sucr_160_t1_epoch             0.0
+test_aligned_sucr_160_t2_epoch             0.0
+test_aligned_sucr_160_t3_epoch             0.0
+test_aligned_sucr_160_t4_epoch             0.0
+test_aligned_sucr_160_t5_epoch             0.0
+  test_aligned_sucr_16_epoch        0.3203648626804352
+test_aligned_sucr_16_t0_epoch       0.6431834697723389
+test_aligned_sucr_16_t1_epoch       0.4466564655303955
+test_aligned_sucr_16_t2_epoch      0.29907676577568054
+test_aligned_sucr_16_t3_epoch      0.22082243859767914
+test_aligned_sucr_16_t4_epoch      0.16436146199703217
+test_aligned_sucr_16_t5_epoch      0.14808844029903412
+ test_aligned_sucr_181_epoch               0.0
+test_aligned_sucr_181_t0_epoch             0.0
+test_aligned_sucr_181_t1_epoch             0.0
+test_aligned_sucr_181_t2_epoch             0.0
+test_aligned_sucr_181_t3_epoch             0.0
+test_aligned_sucr_181_t4_epoch             0.0
+test_aligned_sucr_181_t5_epoch             0.0
+ test_aligned_sucr_219_epoch               0.0
+test_aligned_sucr_219_t0_epoch             0.0
+test_aligned_sucr_219_t1_epoch             0.0
+test_aligned_sucr_219_t2_epoch             0.0
+test_aligned_sucr_219_t3_epoch             0.0
+test_aligned_sucr_219_t4_epoch             0.0
+test_aligned_sucr_219_t5_epoch             0.0
+  test_aligned_sucr_74_epoch       0.06203797459602356
+test_aligned_sucr_74_t0_epoch      0.29268255829811096
+test_aligned_sucr_74_t1_epoch      0.06818166375160217
+test_aligned_sucr_74_t2_epoch              0.0
+test_aligned_sucr_74_t3_epoch      0.011363623663783073
+test_aligned_sucr_74_t4_epoch              0.0
+test_aligned_sucr_74_t5_epoch              0.0
+ test_aligned_sucr_avg_epoch       0.06373380124568939
+test_aligned_sucr_avg_t0_epoch     0.15597766637802124
+test_aligned_sucr_avg_t1_epoch     0.08580635488033295
+test_aligned_sucr_avg_t2_epoch     0.04984612762928009
+test_aligned_sucr_avg_t3_epoch     0.038697678595781326
+test_aligned_sucr_avg_t4_epoch     0.027393577620387077
+test_aligned_sucr_avg_t5_epoch     0.02468140609562397
+     test_bias_133_epoch            4.7051520347595215
+    test_bias_133_t0_epoch          0.2312580645084381
+    test_bias_133_t1_epoch          5.495977401733398
+    test_bias_133_t2_epoch          21.983360290527344
+    test_bias_133_t3_epoch          0.5203161835670471
+    test_bias_133_t4_epoch                 0.0
+    test_bias_133_t5_epoch                 0.0
+     test_bias_160_epoch            9.402873039245605
+    test_bias_160_t0_epoch         0.23124779760837555
+    test_bias_160_t1_epoch          2.081230401992798
+    test_bias_160_t2_epoch          52.02381134033203
+    test_bias_160_t3_epoch          2.0809526443481445
+    test_bias_160_t4_epoch                 0.0
+    test_bias_160_t5_epoch                 0.0
+      test_bias_16_epoch            1.7025998830795288
+    test_bias_16_t0_epoch           2.0401036739349365
+    test_bias_16_t1_epoch            1.67094087600708
+    test_bias_16_t2_epoch           1.6740282773971558
+    test_bias_16_t3_epoch           1.6711094379425049
+    test_bias_16_t4_epoch           1.6119886636734009
+    test_bias_16_t5_epoch           1.5474276542663574
+     test_bias_181_epoch            8.757349967956543
+    test_bias_181_t0_epoch                 0.0
+    test_bias_181_t1_epoch          0.5202903151512146
+    test_bias_181_t2_epoch          52.02381134033203
+    test_bias_181_t3_epoch                 0.0
+    test_bias_181_t4_epoch                 0.0
+    test_bias_181_t5_epoch                 0.0
+     test_bias_219_epoch               138757936.0
+    test_bias_219_t0_epoch                 0.0
+    test_bias_219_t1_epoch                 0.0
+    test_bias_219_t2_epoch             832547584.0
+    test_bias_219_t3_epoch                 0.0
+    test_bias_219_t4_epoch                 0.0
+    test_bias_219_t5_epoch                 0.0
+      test_bias_74_epoch           0.49224725365638733
+    test_bias_74_t0_epoch           0.9811025857925415
+    test_bias_74_t1_epoch           0.6719284057617188
+    test_bias_74_t2_epoch           0.7864024639129639
+    test_bias_74_t3_epoch          0.23982736468315125
+    test_bias_74_t4_epoch          0.16422834992408752
+    test_bias_74_t5_epoch          0.10999414324760437
+     test_bias_avg_epoch                23126326.0
+    test_bias_avg_t0_epoch          0.580618679523468
+    test_bias_avg_t1_epoch          1.7400612831115723
+    test_bias_avg_t2_epoch             138757952.0
+    test_bias_avg_t3_epoch          0.7520342469215393
+    test_bias_avg_t4_epoch          0.2960361838340759
+    test_bias_avg_t5_epoch         0.27623695135116577
+      test_csi_133_epoch                   0.0
+    test_csi_133_t0_epoch                  0.0
+    test_csi_133_t1_epoch                  0.0
+    test_csi_133_t2_epoch                  0.0
+    test_csi_133_t3_epoch                  0.0
+    test_csi_133_t4_epoch                  0.0
+    test_csi_133_t5_epoch                  0.0
+      test_csi_160_epoch                   0.0
+    test_csi_160_t0_epoch                  0.0
+    test_csi_160_t1_epoch                  0.0
+    test_csi_160_t2_epoch                  0.0
+    test_csi_160_t3_epoch                  0.0
+    test_csi_160_t4_epoch                  0.0
+    test_csi_160_t5_epoch                  0.0
+      test_csi_16_epoch            0.20817767083644867
+     test_csi_16_t0_epoch           0.4895600378513336
+     test_csi_16_t1_epoch          0.28177183866500854
+     test_csi_16_t2_epoch          0.18106508255004883
+     test_csi_16_t3_epoch          0.13098879158496857
+     test_csi_16_t4_epoch          0.09901338815689087
+     test_csi_16_t5_epoch          0.06666667014360428
+      test_csi_181_epoch                   0.0
+    test_csi_181_t0_epoch                  0.0
+    test_csi_181_t1_epoch                  0.0
+    test_csi_181_t2_epoch                  0.0
+    test_csi_181_t3_epoch                  0.0
+    test_csi_181_t4_epoch                  0.0
+    test_csi_181_t5_epoch                  0.0
+      test_csi_219_epoch                   0.0
+    test_csi_219_t0_epoch                  0.0
+    test_csi_219_t1_epoch                  0.0
+    test_csi_219_t2_epoch                  0.0
+    test_csi_219_t3_epoch                  0.0
+    test_csi_219_t4_epoch                  0.0
+    test_csi_219_t5_epoch                  0.0
+      test_csi_74_epoch            0.03134363889694214
+     test_csi_74_t0_epoch          0.11330043524503708
+     test_csi_74_t1_epoch          0.04020098224282265
+     test_csi_74_t2_epoch          0.005714282393455505
+     test_csi_74_t3_epoch                  0.0
+     test_csi_74_t4_epoch                  0.0
+     test_csi_74_t5_epoch          0.028846126049757004
+      test_csi_avg_epoch           0.03992021083831787
+    test_csi_avg_t0_epoch          0.10047674179077148
+    test_csi_avg_t1_epoch          0.05366213619709015
+    test_csi_avg_t2_epoch          0.03112989477813244
+    test_csi_avg_t3_epoch          0.021831465885043144
+    test_csi_avg_t4_epoch          0.01650223135948181
+    test_csi_avg_t5_epoch          0.015918798744678497
+        test_fvd_epoch              85.84060668945312
+        test_mae_epoch             0.005217554047703743
+        test_mse_epoch            0.0003351691411808133
+      test_pod_133_epoch                   0.0
+    test_pod_133_t0_epoch                  0.0
+    test_pod_133_t1_epoch                  0.0
+    test_pod_133_t2_epoch                  0.0
+    test_pod_133_t3_epoch                  0.0
+    test_pod_133_t4_epoch                  0.0
+    test_pod_133_t5_epoch                  0.0
+      test_pod_160_epoch                   0.0
+    test_pod_160_t0_epoch                  0.0
+    test_pod_160_t1_epoch                  0.0
+    test_pod_160_t2_epoch                  0.0
+    test_pod_160_t3_epoch                  0.0
+    test_pod_160_t4_epoch                  0.0
+    test_pod_160_t5_epoch                  0.0
+      test_pod_16_epoch             0.3111674189567566
+     test_pod_16_t0_epoch           0.6540473103523254
+     test_pod_16_t1_epoch           0.4167966842651367
+     test_pod_16_t2_epoch          0.29079553484916687
+     test_pod_16_t3_epoch           0.2195955514907837
+     test_pod_16_t4_epoch          0.16937914490699768
+     test_pod_16_t5_epoch          0.11639030277729034
+      test_pod_181_epoch                   0.0
+    test_pod_181_t0_epoch                  0.0
+    test_pod_181_t1_epoch                  0.0
+    test_pod_181_t2_epoch                  0.0
+    test_pod_181_t3_epoch                  0.0
+    test_pod_181_t4_epoch                  0.0
+    test_pod_181_t5_epoch                  0.0
+      test_pod_219_epoch                   0.0
+    test_pod_219_t0_epoch                  0.0
+    test_pod_219_t1_epoch                  0.0
+    test_pod_219_t2_epoch                  0.0
+    test_pod_219_t3_epoch                  0.0
+    test_pod_219_t4_epoch                  0.0
+    test_pod_219_t5_epoch                  0.0
+      test_pod_74_epoch            0.04598410800099373
+     test_pod_74_t0_epoch          0.17164164781570435
+     test_pod_74_t1_epoch          0.060606010258197784
+     test_pod_74_t2_epoch          0.009174303151667118
+     test_pod_74_t3_epoch                  0.0
+     test_pod_74_t4_epoch                  0.0
+     test_pod_74_t5_epoch          0.034482717514038086
+      test_pod_avg_epoch            0.0595252551138401
+    test_pod_avg_t0_epoch          0.13761483132839203
+    test_pod_avg_t1_epoch          0.07956711947917938
+    test_pod_avg_t2_epoch          0.049994971603155136
+    test_pod_avg_t3_epoch          0.036599259823560715
+    test_pod_avg_t4_epoch          0.028229856863617897
+    test_pod_avg_t5_epoch          0.025145502761006355
+       test_ssim_epoch              0.8579023480415344
+     test_sucr_133_epoch                   0.0
+    test_sucr_133_t0_epoch                 0.0
+    test_sucr_133_t1_epoch                 0.0
+    test_sucr_133_t2_epoch                 0.0
+    test_sucr_133_t3_epoch                 0.0
+    test_sucr_133_t4_epoch                 0.0
+    test_sucr_133_t5_epoch                 0.0
+     test_sucr_160_epoch                   0.0
+    test_sucr_160_t0_epoch                 0.0
+    test_sucr_160_t1_epoch                 0.0
+    test_sucr_160_t2_epoch                 0.0
+    test_sucr_160_t3_epoch                 0.0
+    test_sucr_160_t4_epoch                 0.0
+    test_sucr_160_t5_epoch                 0.0
+      test_sucr_16_epoch           0.33709678053855896
+    test_sucr_16_t0_epoch           0.6606289148330688
+    test_sucr_16_t1_epoch           0.4651770293712616
+    test_sucr_16_t2_epoch           0.3242506682872772
+    test_sucr_16_t3_epoch           0.2450731098651886
+    test_sucr_16_t4_epoch          0.19246575236320496
+    test_sucr_16_t5_epoch          0.13498520851135254
+     test_sucr_181_epoch                   0.0
+    test_sucr_181_t0_epoch                 0.0
+    test_sucr_181_t1_epoch                 0.0
+    test_sucr_181_t2_epoch                 0.0
+    test_sucr_181_t3_epoch                 0.0
+    test_sucr_181_t4_epoch                 0.0
+    test_sucr_181_t5_epoch                 0.0
+     test_sucr_219_epoch                   0.0
+    test_sucr_219_t0_epoch                 0.0
+    test_sucr_219_t1_epoch                 0.0
+    test_sucr_219_t2_epoch                 0.0
+    test_sucr_219_t3_epoch                 0.0
+    test_sucr_219_t4_epoch                 0.0
+    test_sucr_219_t5_epoch                 0.0
+      test_sucr_74_epoch           0.08693181723356247
+    test_sucr_74_t0_epoch           0.2499997317790985
+    test_sucr_74_t1_epoch          0.10666652768850327
+    test_sucr_74_t2_epoch          0.014925351366400719
+    test_sucr_74_t3_epoch                  0.0
+    test_sucr_74_t4_epoch                  0.0
+    test_sucr_74_t5_epoch          0.14999926090240479
+     test_sucr_avg_epoch            0.0706714317202568
+    test_sucr_avg_t0_epoch          0.1517714411020279
+    test_sucr_avg_t1_epoch         0.09530726075172424
+    test_sucr_avg_t2_epoch         0.05652933567762375
+    test_sucr_avg_t3_epoch         0.040845517069101334
+    test_sucr_avg_t4_epoch         0.03207762539386749
+    test_sucr_avg_t5_epoch         0.04749741032719612
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────

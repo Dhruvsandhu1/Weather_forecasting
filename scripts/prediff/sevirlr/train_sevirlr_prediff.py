@@ -1,3 +1,6 @@
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 import warnings
 from typing import Sequence, Union, Dict
 from shutil import copyfile
@@ -15,7 +18,6 @@ from lightning.pytorch.callbacks import (
     EarlyStopping, ModelCheckpoint, )
 from lightning.pytorch.utilities import grad_norm
 from omegaconf import OmegaConf
-import os
 import argparse
 from einops import rearrange
 import platform
@@ -476,7 +478,7 @@ class PreDiffSEVIRPLModule(LatentDiffusion):
         cfg.out_len = 6
         cfg.seq_len = 13
         cfg.plot_stride = 1
-        cfg.interval_real_time = 10
+        cfg.interval_real_time = 30
         cfg.sample_mode = "sequent"
         cfg.stride = cfg.out_len
         cfg.layout = "NTHWC"
@@ -736,6 +738,7 @@ class PreDiffSEVIRPLModule(LatentDiffusion):
             ret_contiguous=False,
             # datamodule_only
             dataset_name=dataset_cfg["dataset_name"],
+            sevir_dir=dataset_cfg.get("sevir_dir", None),
             start_date=dataset_cfg["start_date"],
             train_test_split_date=dataset_cfg["train_test_split_date"],
             end_date=dataset_cfg["end_date"],
@@ -914,7 +917,8 @@ class PreDiffSEVIRPLModule(LatentDiffusion):
             valid_mse = self.valid_mse.compute()
             valid_mae = self.valid_mae.compute()
             valid_score = self.valid_score.compute()
-            valid_loss = -valid_score["avg"]["csi"]
+            csi_avg = valid_score["avg"]["csi"]
+            valid_loss = -float(np.mean(csi_avg))
 
             self.log('valid_loss_epoch', valid_loss, prog_bar=True, on_step=False, on_epoch=True, sync_dist=True)
             self.log('valid_mse_epoch', valid_mse, prog_bar=True, on_step=False, on_epoch=True, sync_dist=True)
@@ -927,7 +931,8 @@ class PreDiffSEVIRPLModule(LatentDiffusion):
             valid_mse = self.valid_aligned_mse.compute()
             valid_mae = self.valid_aligned_mae.compute()
             valid_score = self.valid_aligned_score.compute()
-            valid_loss = -valid_score["avg"]["csi"]
+            csi_avg = valid_score["avg"]["csi"]
+            valid_loss = -float(np.mean(csi_avg))
 
             self.log('valid_aligned_loss_epoch', valid_loss, prog_bar=True, on_step=False, on_epoch=True,
                      sync_dist=True)
@@ -1104,7 +1109,7 @@ class PreDiffSEVIRPLModule(LatentDiffusion):
                 save_path=os.path.join(self.example_save_dir, png_save_name),
                 seq=seq_list,
                 label=label_list,
-                interval_real_time=10,
+                interval_real_time=30,
                 plot_stride=1, fs=self.oc.eval.fs,
                 label_offset=self.oc.eval.label_offset,
                 label_avg_int=self.oc.eval.label_avg_int, )
@@ -1112,14 +1117,27 @@ class PreDiffSEVIRPLModule(LatentDiffusion):
     def log_score_epoch_end(self, score_dict: Dict, prefix: str = "valid"):
         for metrics in self.oc.dataset.metrics_list:
             for thresh in self.oc.dataset.threshold_list:
-                score_mean = np.mean(score_dict[thresh][metrics]).item()
+                score_vals = score_dict[thresh][metrics]
+                score_mean = float(np.mean(score_vals))
                 self.log(f"{prefix}_{metrics}_{thresh}_epoch", score_mean,
                          prog_bar=True, on_step=False, on_epoch=True, sync_dist=True)
+                # Per-output-frame logging when metrics_mode == "1"
+                score_arr = np.asarray(score_vals)
+                if score_arr.ndim == 1:
+                    for t, v in enumerate(score_arr.tolist()):
+                        self.log(f"{prefix}_{metrics}_{thresh}_t{t}_epoch", float(v),
+                                 prog_bar=False, on_step=False, on_epoch=True, sync_dist=True)
             score_avg_mean = score_dict.get("avg", None)
             if score_avg_mean is not None:
-                score_avg_mean = np.mean(score_avg_mean[metrics]).item()
-                self.log(f"{prefix}_{metrics}_avg_epoch", score_avg_mean,
+                score_avg_vals = score_avg_mean[metrics]
+                score_avg_mean_val = float(np.mean(score_avg_vals))
+                self.log(f"{prefix}_{metrics}_avg_epoch", score_avg_mean_val,
                          prog_bar=True, on_step=False, on_epoch=True, sync_dist=True)
+                score_avg_arr = np.asarray(score_avg_vals)
+                if score_avg_arr.ndim == 1:
+                    for t, v in enumerate(score_avg_arr.tolist()):
+                        self.log(f"{prefix}_{metrics}_avg_t{t}_epoch", float(v),
+                                 prog_bar=False, on_step=False, on_epoch=True, sync_dist=True)
 
     def on_before_optimizer_step(self, optimizer):
         # Compute the 2-norm for each layer
@@ -1138,6 +1156,14 @@ def get_parser():
     parser.add_argument('--gpus', default=1, type=int,
                         help="Number of GPUS per node in DDP training.")
     parser.add_argument('--cfg', default=None, type=str)
+    parser.add_argument('--sevir_dir', default=None, type=str,
+                        help='Override dataset root directory (must contain CATALOG.csv and data/). '
+                             'Example: "datasets/train" for a custom-built SEVIR-LR dataset.')
+    parser.add_argument('--dataset_stride', type=int, default=None,
+                    help='Override dataset stride used in sequent sampling. Smaller stride yields more 13-frame samples per 25-frame event. '
+                        'Example: 1 gives 13 samples/event when raw_seq_len=25 and seq_len=13.')
+    parser.add_argument('--eval_all', action='store_true',
+                    help='Evaluate on ALL test batches (ignores eval_example_only gating). Useful for small custom datasets.')
     parser.add_argument('--test', action='store_true')
     parser.add_argument('--ckpt_name', default=None, type=str,
                         help='The model checkpoint trained on SEVIR-LR.')
@@ -1169,6 +1195,8 @@ def main():
                                     exist_ok=False)
     if args.cfg is not None:
         oc_from_file = OmegaConf.load(open(args.cfg, "r"))
+        if args.eval_all:
+            oc_from_file.eval.eval_example_only = False
         dataset_cfg = OmegaConf.to_object(oc_from_file.dataset)
         total_batch_size = oc_from_file.optim.total_batch_size
         micro_batch_size = oc_from_file.optim.micro_batch_size
@@ -1182,6 +1210,11 @@ def main():
         max_epochs = None
         seed = 0
         float32_matmul_precision = "high"
+    if args.sevir_dir is not None:
+        dataset_cfg["sevir_dir"] = os.path.abspath(args.sevir_dir)
+    if args.dataset_stride is not None:
+        dataset_cfg["stride"] = int(args.dataset_stride)
+
     torch.set_float32_matmul_precision(float32_matmul_precision)
     seed_everything(seed, workers=True)
     num_workers = 0 if platform.system() == "Windows" else 8
@@ -1191,6 +1224,15 @@ def main():
         num_workers=num_workers, )
     dm.prepare_data()
     dm.setup()
+
+    # Print resolved dataset for verification
+    try:
+        print(f"Using dataset_name: {dm.dataset_name}")
+        print(f"Using sevir_dir: {dm.sevir_dir}")
+        print(f"Using catalog: {dm.catalog_path}")
+        print(f"Num test samples: {dm.num_test_samples}")
+    except Exception:
+        pass
     accumulate_grad_batches = total_batch_size // (micro_batch_size * args.nodes * args.gpus)
     total_num_steps = PreDiffSEVIRPLModule.get_total_num_steps(
         epoch=max_epochs,

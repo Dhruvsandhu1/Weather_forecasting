@@ -6,7 +6,7 @@ dataset:
   out_len: 6
   seq_len: 13
   plot_stride: 1
-  interval_real_time: 10
+  interval_real_time: 30
   sample_mode: "sequent"
   stride: 6
   layout: "NTHWC"
@@ -14,7 +14,10 @@ dataset:
   train_test_split_date: [2019, 6, 1]
   end_date: null
   val_ratio: 0.1
-  metrics_mode: "0"
+  # "0": aggregate over all output frames
+  # "1": compute metrics per output frame (image-wise, length = out_len)
+  # "2": per-frame first, then average over frames
+  metrics_mode: "1"
   metrics_list: ['csi', 'pod', 'sucr', 'bias']
   threshold_list: [16, 74, 133, 160, 181, 219]
   aug_mode: "2"
